@@ -10,6 +10,24 @@ Li-ion batteries are high energy devices that may catch fire or explode
 if mishandled.
 Review the code and use it at your own risk.
 
+## Features
+
+Current status of firmware is 'proof of concept'.
+
+Implemented features:
+ * Basic button handling. Turn on/off.
+ * Charging (without temperature monitoring)
+ * Stop charging by voltage monitoring of each cell.
+ * Stop operation if voltage of any of the cells is dropped below limit.
+ * Basic LED indication (charging, operation)
+
+## TODO
+
+ * Temperature monitoring (external and internal thermistors)
+ * Show charge state with LED
+ * Show level of cells unbalance with LED
+
+
 ## Hardware
 All older Dyson batteries are based on pic16lf1847 microcontroller with
 ISL94208 battery controller.
