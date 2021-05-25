@@ -45,3 +45,7 @@ bool adc_is_button_pressed(void);
  */
 bool adc_is_charger_connected(void);
 
+/**
+ * Check if neither charger nor button is active and input is in idle state
+ */
+bool adc_ctrl_idle(void);
