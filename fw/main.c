@@ -58,6 +58,7 @@
 
 typedef enum {
     STATE_IDLE = 0,
+    STATE_WAIT_IDLE,
     STATE_ON,
     STATE_CHARGING,
     STATE_UNDERVOLTAGE,
@@ -112,6 +113,7 @@ int main(void)
             uint16_t cell_v = adc_get_cell(i);
             if (cell_v < VOLT_TO_ADC(2.8)) {
                 if (state == STATE_ON) {
+                    BLUE_LED_PORT = 1;
                     RED_LED_PORT = 0;
                     state = STATE_UNDERVOLTAGE;
                     isl94208_set_fet(0);
@@ -144,7 +146,9 @@ int main(void)
         }
 
         if (adc_is_charger_connected()) {
-            if (state == STATE_IDLE || state == STATE_UNDERVOLTAGE) {
+            if ( state == STATE_IDLE ||
+                 state == STATE_UNDERVOLTAGE ||
+                 state == STATE_WAIT_IDLE ) {
                 BLUE_LED_PORT = 0;
                 RED_LED_PORT = 1;
                 result = isl94208_set_fet(1<<FET_CFET);
@@ -158,8 +162,15 @@ int main(void)
                 GREEN_LED_PORT = 1;
 #endif
                 result = isl94208_set_fet(0);
-                state = STATE_IDLE;
+                state = STATE_WAIT_IDLE;
                 idle_ms = 0;
+            }
+        }
+
+        if (state == STATE_WAIT_IDLE) {
+            idle_ms = 0;        // don't go to sleep untill idle state is reached
+            if (adc_ctrl_idle()) {
+                state = STATE_IDLE;
             }
         }
 

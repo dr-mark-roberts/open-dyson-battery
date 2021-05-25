@@ -7,6 +7,7 @@
 #include "isl94208.h"
 
 
+#define IDLE_THRESHOLD                  (40)
 #define BUTTON_PRESSED_THRESHOLD        (80)
 #define CHARGER_CONNECTED_THRESHOLD     (720)
 
@@ -85,3 +86,9 @@ bool adc_is_charger_connected(void)
 {
     return button_charger_val > CHARGER_CONNECTED_THRESHOLD;
 }
+
+bool adc_ctrl_idle(void)
+{
+    return button_charger_val < IDLE_THRESHOLD;
+}
+
