@@ -51,7 +51,7 @@ CP=cp
 CCADMIN=CCadmin
 RANLIB=ranlib
 FW_HEX=dist/default/production/fw.production.hex
-IPE_CMD=/opt/microchip/mplabx/v5.45/mplab_platform/mplab_ipe/ipecmd.sh
+IPE_CMD=/opt/microchip/mplabx/v6.00/mplab_platform/mplab_ipe/ipecmd.sh
 #MP_EXTRA_CC_PRE=-DHW_V6_188002
 MP_EXTRA_CC_PRE=-DHW_V8_180207
 
