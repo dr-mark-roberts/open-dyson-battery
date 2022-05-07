@@ -42,6 +42,7 @@ void adc_init(void)
     ADCON0bits.ADON = 1;
     ADCON1bits.ADPREF = 1<<1;       // external reference voltage
     ADCON1bits.ADFM = 1;            // value right justified
+    ADCON1bits.ADCS1 = 1;           // conversion clock = Fosc/32
 }
 
 void adc_process(void)
@@ -51,7 +52,7 @@ void adc_process(void)
     ADCON0bits.GO = 1;             // start ADC
     WAIT_ADC_RESULT();
     WRITE_ADC_VAL(button_charger_val);
-        
+
     ADCON0bits.CHS = 4;
     __delay_us(10);
     for (uint8_t i = 0; i < CELLS_NUMBER; i++) {
